@@ -16,7 +16,7 @@ public class BoardDAO {
     
     private final Connection connection;
     
-    private BoardEntity insert(final BoardEntity entity) throws SQLException {
+    public BoardEntity insert(final BoardEntity entity) throws SQLException {
         String sql = "INSERT INTO boards (name) VALUES (?);";
         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
             statement.setString(1, entity.getName());
@@ -31,7 +31,7 @@ public class BoardDAO {
         return entity;
     }
 
-    private void delete(final Long id) throws SQLException {    
+    public void delete(final Long id) throws SQLException {    
         String sql = "DELETE FROM boards WHERE id = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)){ 
             statement.setLong(1, id);
@@ -41,7 +41,7 @@ public class BoardDAO {
         
     }
 
-    private Optional<BoardEntity> findById(final Long id) throws SQLException {
+    public Optional<BoardEntity> findById(final Long id) throws SQLException {
         String sql = "SELECT * from boards WHERE id = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)){ 
             statement.setLong(1, id);
@@ -58,7 +58,7 @@ public class BoardDAO {
         }
     }
 
-    private boolean exists(final Long id) throws SQLException {
+    public boolean exists(final Long id) throws SQLException {
         String sql = "SELECT 1 FROM boards WHERE id = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setLong(1, id);
